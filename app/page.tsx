@@ -35,7 +35,7 @@ export default function Home() {
   const prefersReduced = useReducedMotion();
   const variants = prefersReduced ? noMotion : fadeUp;
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-16">
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-16">
       <motion.div
         initial={prefersReduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
