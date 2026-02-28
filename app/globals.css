@@ -15,4 +15,24 @@
   h6 {
     @apply font-heading;
   }
+
+  /* Focus-visible styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-bronze ring-offset-2 ring-offset-cream;
+  }
+
+  /* Remove default focus ring for mouse users */
+  :focus:not(:focus-visible) {
+    @apply outline-none ring-0;
+  }
+}
+
+@layer components {
+  .skip-to-content {
+    @apply absolute -top-full left-4 z-[100] px-4 py-2 bg-bronze text-cream font-body text-sm rounded-b-lg transition-all duration-200;
+  }
+
+  .skip-to-content:focus {
+    @apply top-0;
+  }
 }

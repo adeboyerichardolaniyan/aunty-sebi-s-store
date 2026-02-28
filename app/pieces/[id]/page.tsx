@@ -16,9 +16,19 @@ export function generateMetadata({ params }: PageProps): Metadata {
   const piece = getPieceBySlug(params.id);
   if (!piece) return { title: "Piece Not Found" };
 
+  const formattedPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: piece.currency,
+    minimumFractionDigits: 0,
+  }).format(piece.price);
+
   return {
-    title: `${piece.name} | Aunty Sebi's Jewelry`,
+    title: piece.name,
     description: piece.description,
+    openGraph: {
+      title: `${piece.name} — ${formattedPrice}`,
+      description: piece.description,
+    },
   };
 }
 

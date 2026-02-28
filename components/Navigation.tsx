@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -31,6 +31,22 @@ export default function Navigation() {
   const prefersReduced = useReducedMotion();
 
   const [scrolled, setScrolled] = useState(false);
+
+  // -----------------------------------------------------------------------
+  // Route change progress bar
+  // -----------------------------------------------------------------------
+
+  const [isNavigating, setIsNavigating] = useState(false);
+  const previousPathname = useRef(pathname);
+
+  useEffect(() => {
+    if (pathname !== previousPathname.current) {
+      setIsNavigating(true);
+      previousPathname.current = pathname;
+      const timer = setTimeout(() => setIsNavigating(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname]);
 
   const isDarkPage = DARK_ROUTES.some((route) => pathname.startsWith(route));
 
@@ -117,6 +133,18 @@ export default function Navigation() {
       animate="visible"
       className={`fixed top-0 left-0 right-0 z-50 h-16 transition-colors duration-300 ease-smooth ${backgroundClass}`}
     >
+      {/* Route progress bar */}
+      <AnimatePresence>
+        {isNavigating && !prefersReduced && (
+          <motion.div
+            initial={{ scaleX: 0, opacity: 1 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="absolute bottom-0 left-0 right-0 h-[2px] bg-bronze origin-left"
+          />
+        )}
+      </AnimatePresence>
       <nav className="mx-auto flex h-full max-w-7xl items-center justify-between px-5 md:px-8">
         {/* ---- Logo ---- */}
         <Link

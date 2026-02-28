@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { EASING } from "@/lib/timing";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
@@ -11,7 +11,7 @@ const fadeUp = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.7,
       delay,
       ease: EASING.gentle.slice() as number[],
     },
@@ -23,67 +23,62 @@ const noMotion = {
   visible: () => ({ opacity: 1, y: 0 }),
 };
 
-export default function Home() {
+export default function NotFound() {
   const prefersReduced = useReducedMotion();
   const variants = prefersReduced ? noMotion : fadeUp;
 
   return (
     <main
       id="main-content"
-      className="min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-16"
+      className="min-h-screen flex flex-col items-center justify-center px-6 pt-16"
     >
       <motion.div
+        className="text-center max-w-lg"
         initial={prefersReduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: prefersReduced ? 0 : 1 }}
-        className="flex flex-col items-center text-center max-w-3xl"
+        transition={{ duration: prefersReduced ? 0 : 0.5 }}
       >
-        {/* Overline */}
         <motion.p
+          custom={0}
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          className="font-body text-sm uppercase tracking-widest text-bronze-dark/60 mb-4"
+        >
+          404
+        </motion.p>
+
+        <motion.h1
+          custom={0.1}
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          className="font-heading text-hero text-rich-black mb-6"
+        >
+          Page Not Found
+        </motion.h1>
+
+        <motion.div
           custom={0.2}
           variants={variants}
           initial="hidden"
           animate="visible"
-          className="font-body text-sm uppercase tracking-[0.2em] text-bronze-dark/60 mb-8"
-        >
-          Handcrafted Jewelry
-        </motion.p>
-
-        {/* Headline */}
-        <motion.h1
-          custom={0.4}
-          variants={variants}
-          initial="hidden"
-          animate="visible"
-          className="font-heading text-hero md:text-[4.5rem] md:leading-[1.05] text-rich-black mb-8"
-        >
-          Stories from Around the World
-        </motion.h1>
-
-        {/* Bronze accent rule */}
-        <motion.div
-          custom={0.6}
-          variants={variants}
-          initial="hidden"
-          animate="visible"
-          className="w-16 h-[2px] bg-bronze/50 mb-8"
+          className="w-12 h-[2px] bg-bronze/40 mx-auto mb-8"
         />
 
-        {/* Subtitle */}
         <motion.p
-          custom={0.8}
+          custom={0.3}
           variants={variants}
           initial="hidden"
           animate="visible"
-          className="text-body text-rich-black/60 leading-relaxed max-w-xl mb-12"
+          className="text-body text-rich-black/70 leading-relaxed mb-10"
         >
-          Each piece carries the heritage of multiple cultures, united by
-          artisan hands into singular works of wearable art.
+          The page you&rsquo;re looking for doesn&rsquo;t exist. It may have
+          been moved, or the link may be incorrect.
         </motion.p>
 
-        {/* CTA */}
         <motion.div
-          custom={1.1}
+          custom={0.5}
           variants={variants}
           initial="hidden"
           animate="visible"
