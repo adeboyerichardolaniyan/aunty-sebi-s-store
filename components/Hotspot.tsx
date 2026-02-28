@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
+import { useCursor } from "@react-three/drei";
 import * as THREE from "three";
 import type { Hotspot as HotspotType } from "@/lib/types";
 
@@ -20,6 +21,7 @@ export default function Hotspot({
 }: HotspotProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
+  useCursor(hovered);
 
   useFrame(({ clock }) => {
     if (!meshRef.current) return;
@@ -56,11 +58,9 @@ export default function Hotspot({
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
-        document.body.style.cursor = "pointer";
       }}
       onPointerOut={() => {
         setHovered(false);
-        document.body.style.cursor = "auto";
       }}
     >
       <sphereGeometry args={[0.03, 16, 16]} />

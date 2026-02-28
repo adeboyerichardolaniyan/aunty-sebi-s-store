@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { EASING } from "@/lib/timing";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const HeroPreview3D = dynamic(() => import("@/components/HeroPreview3D"), {
   ssr: false,
@@ -20,24 +21,32 @@ const fadeUp = {
     transition: {
       duration: 0.8,
       delay,
-      ease: EASING.gentle as unknown as number[],
+      ease: EASING.gentle.slice() as number[],
     },
   }),
 };
 
+const noMotion = {
+  hidden: { opacity: 1, y: 0 },
+  visible: () => ({ opacity: 1, y: 0 }),
+};
+
 export default function Home() {
+  const prefersReduced = useReducedMotion();
+  const variants = prefersReduced ? noMotion : fadeUp;
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6 py-16">
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={prefersReduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: prefersReduced ? 0 : 1 }}
         className="flex flex-col items-center text-center max-w-3xl"
       >
         {/* 3D Preview */}
         <motion.div
           custom={0.3}
-          variants={fadeUp}
+          variants={variants}
           initial="hidden"
           animate="visible"
           className="mb-8"
@@ -48,7 +57,7 @@ export default function Home() {
         {/* Headline */}
         <motion.h1
           custom={0.7}
-          variants={fadeUp}
+          variants={variants}
           initial="hidden"
           animate="visible"
           className="font-heading text-hero text-rich-black mb-6"
@@ -59,7 +68,7 @@ export default function Home() {
         {/* Subtitle */}
         <motion.p
           custom={0.9}
-          variants={fadeUp}
+          variants={variants}
           initial="hidden"
           animate="visible"
           className="text-body text-rich-black/70 leading-relaxed max-w-xl mb-10"
@@ -71,7 +80,7 @@ export default function Home() {
         {/* CTA */}
         <motion.div
           custom={1.4}
-          variants={fadeUp}
+          variants={variants}
           initial="hidden"
           animate="visible"
         >

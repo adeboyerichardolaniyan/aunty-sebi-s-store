@@ -25,7 +25,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: EASING.gentle as unknown as number[],
+      ease: EASING.gentle.slice() as number[],
     },
   },
 };

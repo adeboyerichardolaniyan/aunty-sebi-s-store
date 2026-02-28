@@ -18,7 +18,7 @@ export default function LoadingState({
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: EASING.ui as unknown as number[] }}
+          transition={{ duration: 0.6, ease: EASING.ui.slice() as number[] }}
           className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-cream"
         >
           {/* Spinning bronze ring */}

@@ -20,7 +20,7 @@ const panelVariants = {
     opacity: 1,
     transition: {
       duration: 0.5,
-      ease: EASING.ui as unknown as number[],
+      ease: EASING.ui.slice() as number[],
       staggerChildren: 0.2,
       delayChildren: 0.2,
     },
@@ -30,7 +30,7 @@ const panelVariants = {
     opacity: 0,
     transition: {
       duration: 0.4,
-      ease: EASING.ui as unknown as number[],
+      ease: EASING.ui.slice() as number[],
     },
   },
 };
@@ -45,7 +45,7 @@ const mobilePanelVariants = {
     opacity: 1,
     transition: {
       duration: 0.5,
-      ease: EASING.ui as unknown as number[],
+      ease: EASING.ui.slice() as number[],
       staggerChildren: 0.2,
       delayChildren: 0.2,
     },
@@ -55,7 +55,7 @@ const mobilePanelVariants = {
     opacity: 0,
     transition: {
       duration: 0.4,
-      ease: EASING.ui as unknown as number[],
+      ease: EASING.ui.slice() as number[],
     },
   },
 };
@@ -65,7 +65,7 @@ const childVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: EASING.gentle as unknown as number[] },
+    transition: { duration: 0.4, ease: EASING.gentle.slice() as number[] },
   },
 };
 
