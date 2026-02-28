@@ -7,6 +7,7 @@ import { useReducedMotion } from "@/lib/useReducedMotion";
 
 interface ProductSidebarProps {
   piece: Piece;
+  skipEntrance?: boolean;
 }
 
 const containerVariants = {
@@ -41,8 +42,8 @@ const noItemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-export default function ProductSidebar({ piece }: ProductSidebarProps) {
-  const prefersReduced = useReducedMotion();
+export default function ProductSidebar({ piece, skipEntrance }: ProductSidebarProps) {
+  const prefersReduced = useReducedMotion() || skipEntrance;
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: piece.currency,

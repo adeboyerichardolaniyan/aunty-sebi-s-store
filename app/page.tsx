@@ -5,7 +5,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { EASING } from "@/lib/timing";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-import { getAllPieces } from "@/lib/data";
 
 const HeroPreview3D = dynamic(() => import("@/components/HeroPreview3D"), {
   ssr: false,
@@ -35,8 +34,6 @@ const noMotion = {
 export default function Home() {
   const prefersReduced = useReducedMotion();
   const variants = prefersReduced ? noMotion : fadeUp;
-  const firstSlug = getAllPieces()[0]?.slug ?? "akan-heritage-ring";
-
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6 py-16">
       <motion.div
@@ -87,10 +84,10 @@ export default function Home() {
           animate="visible"
         >
           <Link
-            href={`/pieces/${firstSlug}`}
+            href="/globe"
             className="inline-block px-8 py-4 bg-bronze text-cream font-body font-medium text-body rounded-lg shadow-soft hover:bg-bronze-dark transition-colors duration-300 hover:shadow-glow"
           >
-            Explore the Collection
+            Explore Pieces from Around the World
           </Link>
         </motion.div>
       </motion.div>
