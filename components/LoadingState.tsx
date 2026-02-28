@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { EASING } from "@/lib/timing";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 interface LoadingStateProps {
   isLoading: boolean;
@@ -12,6 +13,8 @@ export default function LoadingState({
   isLoading,
   progress,
 }: LoadingStateProps) {
+  const prefersReduced = useReducedMotion();
+
   return (
     <AnimatePresence>
       {isLoading && (
@@ -23,8 +26,8 @@ export default function LoadingState({
         >
           {/* Spinning bronze ring */}
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            animate={prefersReduced ? undefined : { rotate: 360 }}
+            transition={prefersReduced ? undefined : { duration: 2, repeat: Infinity, ease: "linear" }}
             className="mb-6"
           >
             <svg

@@ -10,9 +10,12 @@ import {
   useGLTF,
 } from "@react-three/drei";
 import ViewerErrorBoundary from "./ViewerErrorBoundary";
+import { getAllPieces } from "@/lib/data";
+
+const firstModelUrl = getAllPieces()[0]?.modelUrl ?? "/models/jewelry.glb";
 
 function PreviewModel() {
-  const { scene } = useGLTF("/models/jewelry.glb");
+  const { scene } = useGLTF(firstModelUrl);
   return (
     <Center>
       <Float speed={1.5} rotationIntensity={0.4} floatIntensity={0.3}>
