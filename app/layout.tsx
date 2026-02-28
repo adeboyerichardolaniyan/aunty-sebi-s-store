@@ -18,9 +18,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Aunty Sebi's Jewelry | Handcrafted Stories from Around the World",
+  metadataBase: new URL("https://auntysebis.com"),
+  title: {
+    default: "Aunty Sebi's Jewelry | Handcrafted Stories from Around the World",
+    template: "%s | Aunty Sebi's Jewelry",
+  },
   description:
     "Each piece carries the heritage of multiple cultures, united by artisan hands into singular works of wearable art. Explore handcrafted jewelry with immersive 3D storytelling.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Aunty Sebi's Jewelry",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
