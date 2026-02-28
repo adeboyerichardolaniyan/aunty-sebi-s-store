@@ -61,6 +61,34 @@ const initialState: CartState = {
   isOpen: false,
 };
 
+// Validate shape of items from localStorage to guard against schema drift
+function isCartItem(val: unknown): val is CartItem {
+  return (
+    typeof val === "object" &&
+    val !== null &&
+    typeof (val as CartItem).pieceId === "string" &&
+    typeof (val as CartItem).name === "string" &&
+    typeof (val as CartItem).price === "number"
+  );
+}
+
+// Lazy initializer — reads localStorage synchronously to avoid flash of empty cart
+function getInitialState(): CartState {
+  if (typeof window === "undefined") return initialState;
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed: unknown = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.every(isCartItem)) {
+        return { items: parsed, isOpen: false };
+      }
+    }
+  } catch {
+    // fall through
+  }
+  return initialState;
+}
+
 // ---------------------------------------------------------------------------
 // Reducer
 // ---------------------------------------------------------------------------
@@ -119,22 +147,7 @@ const CartContext = createContext<CartContextValue | null>(null);
 // ---------------------------------------------------------------------------
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
-
-  // Hydrate from localStorage on mount
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed: unknown = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          dispatch({ type: "HYDRATE", items: parsed as CartItem[] });
-        }
-      }
-    } catch {
-      // Silently ignore corrupt or unavailable storage
-    }
-  }, []);
+  const [state, dispatch] = useReducer(cartReducer, undefined, getInitialState);
 
   // Persist items to localStorage on every change
   useEffect(() => {

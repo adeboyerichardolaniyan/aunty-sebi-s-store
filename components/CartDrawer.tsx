@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/cart-context";
@@ -9,10 +9,10 @@ import { useCart } from "@/lib/cart-context";
 // Price formatter
 // ---------------------------------------------------------------------------
 
-const formatPrice = (amount: number) =>
+const formatPrice = (amount: number, currency: string = "USD") =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "USD",
+    currency,
     minimumFractionDigits: 0,
   }).format(amount);
 
@@ -44,6 +44,7 @@ const drawerVariants = {
 
 export default function CartDrawer() {
   const { items, isOpen, setOpen, removeItem, total } = useCart();
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   // -------------------------------------------------------------------------
   // Close handler
@@ -65,6 +66,43 @@ export default function CartDrawer() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, close]);
+
+  // -------------------------------------------------------------------------
+  // Focus trap — keep Tab cycling within the drawer
+  // -------------------------------------------------------------------------
+
+  useEffect(() => {
+    if (!isOpen || !drawerRef.current) return;
+
+    const drawer = drawerRef.current;
+
+    // Auto-focus close button on open
+    const closeBtn = drawer.querySelector<HTMLElement>("button[aria-label='Close cart']");
+    closeBtn?.focus();
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+
+      const focusable = drawer.querySelectorAll<HTMLElement>(
+        'button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
+  }, [isOpen, items]);
 
   // -------------------------------------------------------------------------
   // Body scroll lock
@@ -105,6 +143,7 @@ export default function CartDrawer() {
           {/* ---- Drawer ---- */}
           <motion.aside
             key="cart-drawer"
+            ref={drawerRef}
             variants={drawerVariants}
             initial="hidden"
             animate="visible"
@@ -188,7 +227,7 @@ export default function CartDrawer() {
                           {item.name}
                         </Link>
                         <span className="font-body text-sm text-bronze">
-                          {formatPrice(item.price)}
+                          {formatPrice(item.price, item.currency)}
                         </span>
                       </div>
 
