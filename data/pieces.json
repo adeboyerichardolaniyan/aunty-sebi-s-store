@@ -1,0 +1,183 @@
+{
+  "pieces": [
+    {
+      "id": "akan-bronze-ring-001",
+      "name": "Akan Heritage Ring",
+      "slug": "akan-heritage-ring",
+      "price": 150,
+      "stock": 1,
+      "currency": "USD",
+      "modelUrl": "/models/jewelry.glb",
+      "modelScale": 1,
+      "modelRotation": [0, 0, 0],
+      "images": ["/images/akan-ring-1.jpg"],
+      "origin": {
+        "country": "Ghana",
+        "city": "Kumasi",
+        "lat": 6.6885,
+        "lng": -1.6244,
+        "regionStory": "The Ashanti Region, known for its rich bronze-casting traditions dating back centuries. Kumasi, the cultural heart of the Ashanti people, remains home to master metalworkers who preserve ancient lost-wax casting techniques."
+      },
+      "description": "Handcrafted bronze ring combining Akan bronze-casting techniques with Ethiopian silver accents, creating a bridge between West and East African artisan traditions.",
+      "culturalNarrative": "This piece represents the convergence of two ancient craft traditions. The bronze work honors Ashanti metalworking, while the silver elements carry the heritage of Lalibela's master silversmiths. Each ring is individually cast using the lost-wax method, ensuring no two pieces are identical.",
+      "hotspots": [
+        {
+          "id": "hs-1",
+          "position": [0.2, 0.5, 0.1],
+          "cameraTarget": [0.25, 0.5, 0],
+          "cameraPosition": [0.5, 0.5, 0.8],
+          "title": "Adinkra Symbol",
+          "story": "This ancient Akan symbol, 'Gye Nyame,' represents the supremacy of God. Cast using the lost-wax method, a technique passed down through generations of Ashanti bronze workers. Each line carries the precision of practiced hands.",
+          "component": "bronze-casting",
+          "materials": ["Bronze", "Lost-wax casting"]
+        },
+        {
+          "id": "hs-2",
+          "position": [-0.3, 0.2, 0.4],
+          "cameraTarget": [-0.3, 0.25, 0.3],
+          "cameraPosition": [-0.6, 0.3, 0.7],
+          "title": "Ethiopian Silver Accent",
+          "story": "Silver sourced from Lalibela's markets, where silversmiths have crafted religious artifacts for over 800 years. The intricate filigree work is a signature of their tradition, each thread of silver shaped by hand.",
+          "component": "silver-filigree",
+          "materials": ["Ethiopian Silver", "Hand-forged filigree"]
+        },
+        {
+          "id": "hs-3",
+          "position": [0, -0.4, 0.2],
+          "cameraTarget": [0, -0.35, 0.1],
+          "cameraPosition": [0, -0.7, 0.9],
+          "title": "Fusion Point",
+          "story": "Where bronze meets silver, traditional joining techniques from both cultures merge. This connection point required adapting ancient methods to unite disparate metals, creating something neither tradition could achieve alone.",
+          "component": "fusion-joint",
+          "materials": ["Mixed metals", "Traditional joinery"]
+        }
+      ],
+      "dimensions": {
+        "ringSize": "US 7",
+        "adjustable": false,
+        "weight": "12g",
+        "materials": ["Bronze", "Sterling Silver"]
+      },
+      "care": "Clean with soft cloth. Avoid harsh chemicals. Bronze will develop natural patina over time, adding character and depth."
+    },
+    {
+      "id": "seleucid-earrings-002",
+      "name": "Seleucid Empire Earrings",
+      "slug": "seleucid-empire-earrings",
+      "price": 220,
+      "stock": 1,
+      "currency": "USD",
+      "modelUrl": "/models/earrings_seleucid_empire_305_-_224_bce.glb",
+      "modelScale": 1,
+      "modelRotation": [0, 0, 0],
+      "images": ["/images/seleucid-earrings-1.jpg"],
+      "origin": {
+        "country": "Iran",
+        "city": "Persepolis",
+        "lat": 29.9352,
+        "lng": 52.8916,
+        "regionStory": "The Seleucid Empire bridged Greek and Persian artistic traditions, creating a fusion of aesthetics that influenced jewelry design across the ancient world. Their goldsmiths were renowned for intricate granulation work."
+      },
+      "description": "Inspired by Seleucid Empire goldwork dating to 305–224 BCE. These earrings reimagine ancient Persian granulation techniques through contemporary artisan craft, connecting modern wearers to millennia of goldsmithing tradition.",
+      "culturalNarrative": "The Seleucid period saw an extraordinary blending of Hellenistic and Near Eastern art forms. These earrings draw from temple offerings and royal adornments unearthed in archaeological excavations, reinterpreted with reverence for the original craftspeople whose techniques we honor today.",
+      "hotspots": [
+        {
+          "id": "hs-1",
+          "position": [0.15, 0.6, 0.1],
+          "cameraTarget": [0.15, 0.6, 0],
+          "cameraPosition": [0.3, 0.7, 0.6],
+          "title": "Granulation Detail",
+          "story": "Tiny spheres of gold, each placed by hand using a technique perfected over 2,000 years ago. Seleucid goldsmiths achieved precision that modern machines still struggle to replicate, fusing each granule with controlled heat and copper salts.",
+          "component": "granulation",
+          "materials": ["Gold", "Ancient granulation technique"]
+        },
+        {
+          "id": "hs-2",
+          "position": [-0.2, 0.3, 0.3],
+          "cameraTarget": [-0.2, 0.35, 0.2],
+          "cameraPosition": [-0.4, 0.4, 0.7],
+          "title": "Hellenistic Scroll Motif",
+          "story": "The scrollwork reveals the Greek influence on Seleucid design—organic, flowing forms that echo acanthus leaves and ocean waves. This motif traveled the Silk Road, appearing in art from Rome to Gandhara.",
+          "component": "scroll-motif",
+          "materials": ["Gold wire", "Hand-formed scrollwork"]
+        },
+        {
+          "id": "hs-3",
+          "position": [0, -0.2, 0.25],
+          "cameraTarget": [0, -0.15, 0.15],
+          "cameraPosition": [0, -0.4, 0.8],
+          "title": "Clasp Mechanism",
+          "story": "A modern shepherd's hook clasp pays homage to ancient fastening methods while ensuring secure, comfortable wear. The wire is work-hardened by hand, a technique unchanged since antiquity.",
+          "component": "clasp",
+          "materials": ["Gold wire", "Hand-formed clasp"]
+        }
+      ],
+      "dimensions": {
+        "length": "4.2cm",
+        "weight": "8g",
+        "materials": ["Gold", "Gold Wire"]
+      },
+      "care": "Store in a soft pouch away from other jewelry. Clean gently with a lint-free cloth. Gold maintains its lustre naturally but benefits from occasional professional cleaning."
+    },
+    {
+      "id": "african-mask-pendant-003",
+      "name": "African Heritage Mask Pendant",
+      "slug": "african-heritage-mask-pendant",
+      "price": 185,
+      "stock": 1,
+      "currency": "USD",
+      "modelUrl": "/models/african_masks.glb",
+      "modelScale": 1,
+      "modelRotation": [0, 0, 0],
+      "images": ["/images/mask-pendant-1.jpg"],
+      "origin": {
+        "country": "Nigeria",
+        "city": "Benin City",
+        "lat": 6.335,
+        "lng": 5.6275,
+        "regionStory": "Benin City's bronze-casting tradition, recognized by UNESCO, dates to the 13th century. The Benin Bronzes remain among the most celebrated examples of African metalwork, created by guild artisans serving the Oba's court."
+      },
+      "description": "A wearable tribute to West African mask traditions, this pendant draws from the ceremonial masks of Nigeria and Benin. Cast in bronze with hand-applied patina, each piece carries the weight of centuries of artistic expression.",
+      "culturalNarrative": "African masks are never mere decoration—they are vessels of spiritual power, ancestral memory, and community identity. This pendant translates that sacred artistry into a contemporary form, honoring the master carvers and casters whose work continues to inspire artists worldwide.",
+      "hotspots": [
+        {
+          "id": "hs-1",
+          "position": [0.1, 0.7, 0.15],
+          "cameraTarget": [0.1, 0.7, 0.05],
+          "cameraPosition": [0.2, 0.8, 0.6],
+          "title": "Crown Detail",
+          "story": "The crown element references the coral bead crowns worn by Benin royalty. In the Kingdom of Benin, coral was more precious than gold—a symbol of divine authority granted by Olokun, god of the sea.",
+          "component": "crown",
+          "materials": ["Bronze", "Hand-carved detail"]
+        },
+        {
+          "id": "hs-2",
+          "position": [0, 0.3, 0.2],
+          "cameraTarget": [0, 0.35, 0.1],
+          "cameraPosition": [0, 0.4, 0.7],
+          "title": "Facial Scarification Marks",
+          "story": "The linear marks across the forehead represent ikhian—ritual scarification that identified lineage and status in Benin society. Each pattern was unique to a family, a visual language written on skin and now preserved in bronze.",
+          "component": "scarification",
+          "materials": ["Bronze", "Incised detailing"]
+        },
+        {
+          "id": "hs-3",
+          "position": [-0.1, -0.1, 0.2],
+          "cameraTarget": [-0.1, -0.05, 0.1],
+          "cameraPosition": [-0.2, -0.2, 0.7],
+          "title": "Patina Finish",
+          "story": "The green-brown patina is applied using traditional chemical treatments that accelerate natural aging. This living surface will continue to evolve with wear, making each piece increasingly unique over time.",
+          "component": "patina",
+          "materials": ["Bronze", "Chemical patina treatment"]
+        }
+      ],
+      "dimensions": {
+        "height": "5.5cm",
+        "width": "3.8cm",
+        "weight": "22g",
+        "materials": ["Bronze", "Patina finish"]
+      },
+      "care": "The patina will deepen naturally with wear. To maintain the current finish, store in an airtight container. Clean with a dry soft cloth only—avoid water and cleaning solutions."
+    }
+  ]
+}
