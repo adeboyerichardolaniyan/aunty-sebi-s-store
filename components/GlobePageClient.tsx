@@ -65,7 +65,7 @@ export default function GlobePageClient({ pieces }: GlobePageClientProps) {
   );
 
   return (
-    <main className="min-h-screen relative overflow-hidden bg-cream">
+    <main id="main-content" className="min-h-screen relative overflow-hidden bg-cream">
       {/* Shader background */}
       <div className="absolute inset-0 z-0">
         <MeshGradient

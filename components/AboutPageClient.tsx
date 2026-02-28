@@ -28,7 +28,7 @@ export default function AboutPageClient() {
   const variants = prefersReduced ? noMotion : fadeUp;
 
   return (
-    <main className="pt-24 pb-20 px-6 md:px-12">
+    <main id="main-content" className="pt-24 pb-20 px-6 md:px-12">
       <div className="max-w-2xl mx-auto">
         {/* Hero heading */}
         <motion.h1

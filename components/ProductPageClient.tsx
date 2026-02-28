@@ -28,7 +28,7 @@ export default function ProductPageClient({ piece, skipEntrance }: ProductPageCl
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row pt-16">
+    <div id="main-content" className="min-h-screen flex flex-col lg:flex-row pt-16">
       {/* 3D Viewer — 70% on desktop, ~50vh on mobile */}
       <div className="relative w-full lg:w-[70%] h-[50vh] lg:h-screen lg:sticky lg:top-0">
         <ViewerErrorBoundary>

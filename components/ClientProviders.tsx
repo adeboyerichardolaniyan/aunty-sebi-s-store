@@ -8,6 +8,12 @@ import CartDrawer from "@/components/CartDrawer";
 export default function ClientProviders({ children }: { children: ReactNode }) {
   return (
     <CartProvider>
+      <a
+        href="#main-content"
+        className="skip-to-content"
+      >
+        Skip to content
+      </a>
       <Navigation />
       {children}
       <CartDrawer />
