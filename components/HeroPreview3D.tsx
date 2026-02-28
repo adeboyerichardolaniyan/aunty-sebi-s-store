@@ -31,7 +31,12 @@ export default function HeroPreview3D() {
       <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
         <Canvas
           camera={{ position: [0, 0, 3.5], fov: 45 }}
-          gl={{ antialias: true, alpha: true }}
+          gl={{ antialias: true, alpha: true, powerPreference: "default" }}
+          onCreated={({ gl }) => {
+            gl.domElement.addEventListener("webglcontextlost", (e) => {
+              e.preventDefault();
+            });
+          }}
           style={{ background: "transparent" }}
         >
           <Suspense fallback={null}>

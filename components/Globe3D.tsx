@@ -136,7 +136,7 @@ function GlobeScene({
       globeGroupRef.current.traverse((child) => {
         if (child instanceof THREE.Mesh && child.material) {
           const mat = child.material as THREE.MeshStandardMaterial;
-          if (mat.transparent === undefined) mat.transparent = true;
+          if (!mat.transparent) mat.transparent = true;
           tl.to(
             mat,
             {
@@ -281,8 +281,13 @@ export default function Globe3D({ pieces, onNavigate }: Globe3DProps) {
           near: 0.1,
           far: 100,
         }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
+        onCreated={({ gl }) => {
+          gl.domElement.addEventListener("webglcontextlost", (e) => {
+            e.preventDefault();
+          });
+        }}
       >
         <GlobeScene
           pieces={pieces}
