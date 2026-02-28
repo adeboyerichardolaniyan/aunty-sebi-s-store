@@ -1,9 +1,11 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import type { Piece } from "@/lib/types";
 import { EASING } from "@/lib/timing";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useCart } from "@/lib/cart-context";
 
 interface ProductSidebarProps {
   piece: Piece;
@@ -49,6 +51,22 @@ export default function ProductSidebar({ piece, skipEntrance }: ProductSidebarPr
     currency: piece.currency,
     minimumFractionDigits: 0,
   }).format(piece.price);
+
+  const { addItem, isInCart } = useCart();
+  const [justAdded, setJustAdded] = useState(false);
+  const inCart = isInCart(piece.id);
+  const outOfStock = piece.stock <= 0;
+
+  const handleAddToCart = () => {
+    addItem(piece);
+    setJustAdded(true);
+  };
+
+  useEffect(() => {
+    if (!justAdded) return;
+    const timer = setTimeout(() => setJustAdded(false), 2000);
+    return () => clearTimeout(timer);
+  }, [justAdded]);
 
   return (
     <motion.aside
@@ -170,14 +188,30 @@ export default function ProductSidebar({ piece, skipEntrance }: ProductSidebarPr
         </p>
       </motion.div>
 
-      {/* Add to Cart (styled, non-functional) */}
+      {/* Add to Cart */}
       <motion.button
         variants={prefersReduced ? noItemVariants : itemVariants}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="mt-4 w-full py-4 bg-bronze text-cream font-body font-medium text-body rounded-lg shadow-soft hover:bg-bronze-dark transition-colors duration-300"
+        whileHover={inCart || outOfStock ? undefined : { scale: 1.02 }}
+        whileTap={inCart || outOfStock ? undefined : { scale: 0.98 }}
+        onClick={handleAddToCart}
+        disabled={inCart || outOfStock}
+        className={`mt-4 w-full py-4 font-body font-medium text-body rounded-lg shadow-soft transition-colors duration-300 ${
+          outOfStock
+            ? "bg-warm-gray text-rich-black/40 cursor-not-allowed"
+            : justAdded
+              ? "bg-bronze text-cream"
+              : inCart
+                ? "bg-patina text-cream cursor-default"
+                : "bg-bronze text-cream hover:bg-bronze-dark"
+        }`}
       >
-        Add to Cart — {formattedPrice}
+        {outOfStock
+          ? "Out of Stock"
+          : justAdded
+            ? "Added \u2713"
+            : inCart
+              ? "In Cart"
+              : `Add to Cart \u2014 ${formattedPrice}`}
       </motion.button>
     </motion.aside>
   );
