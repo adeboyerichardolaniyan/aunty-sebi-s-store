@@ -13,9 +13,10 @@ const ProductViewer3D = dynamic(() => import("./ProductViewer3D"), {
 
 interface ProductPageClientProps {
   piece: Piece;
+  skipEntrance?: boolean;
 }
 
-export default function ProductPageClient({ piece }: ProductPageClientProps) {
+export default function ProductPageClient({ piece, skipEntrance }: ProductPageClientProps) {
   const [activeHotspot, setActiveHotspot] = useState<Hotspot | null>(null);
 
   const handleHotspotClick = useCallback((hotspot: Hotspot) => {
@@ -61,7 +62,7 @@ export default function ProductPageClient({ piece }: ProductPageClientProps) {
 
       {/* Product Info Sidebar — 30% on desktop */}
       <div className="w-full lg:w-[30%] lg:min-h-screen lg:overflow-y-auto">
-        <ProductSidebar piece={piece} />
+        <ProductSidebar piece={piece} skipEntrance={skipEntrance} />
       </div>
 
       {/* Story Panel overlay */}

@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 
 interface PageProps {
   params: { id: string };
+  searchParams: { from?: string };
 }
 
 export function generateStaticParams() {
@@ -21,9 +22,14 @@ export function generateMetadata({ params }: PageProps): Metadata {
   };
 }
 
-export default function ProductPage({ params }: PageProps) {
+export default function ProductPage({ params, searchParams }: PageProps) {
   const piece = getPieceBySlug(params.id);
   if (!piece) notFound();
 
-  return <ProductPageClient piece={piece} />;
+  return (
+    <ProductPageClient
+      piece={piece}
+      skipEntrance={searchParams.from === "globe"}
+    />
+  );
 }
