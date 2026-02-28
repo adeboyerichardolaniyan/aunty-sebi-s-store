@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { Piece } from "@/lib/types";
 import { EASING } from "@/lib/timing";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 interface ProductSidebarProps {
   piece: Piece;
@@ -18,6 +19,11 @@ const containerVariants = {
   },
 };
 
+const noStaggerVariants = {
+  hidden: {},
+  visible: {},
+};
+
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -30,7 +36,13 @@ const itemVariants = {
   },
 };
 
+const noItemVariants = {
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export default function ProductSidebar({ piece }: ProductSidebarProps) {
+  const prefersReduced = useReducedMotion();
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: piece.currency,
@@ -39,14 +51,14 @@ export default function ProductSidebar({ piece }: ProductSidebarProps) {
 
   return (
     <motion.aside
-      variants={containerVariants}
-      initial="hidden"
+      variants={prefersReduced ? noStaggerVariants : containerVariants}
+      initial={prefersReduced ? false : "hidden"}
       animate="visible"
       className="flex flex-col gap-6 py-8 px-6 lg:px-8"
     >
       {/* Origin */}
       <motion.p
-        variants={itemVariants}
+        variants={prefersReduced ? noItemVariants : itemVariants}
         className="text-small uppercase tracking-widest text-bronze-dark/60 font-body"
       >
         {piece.origin.city}, {piece.origin.country}
@@ -54,7 +66,7 @@ export default function ProductSidebar({ piece }: ProductSidebarProps) {
 
       {/* Name */}
       <motion.h1
-        variants={itemVariants}
+        variants={prefersReduced ? noItemVariants : itemVariants}
         className="font-heading text-hero text-rich-black leading-tight"
       >
         {piece.name}
@@ -62,7 +74,7 @@ export default function ProductSidebar({ piece }: ProductSidebarProps) {
 
       {/* Price */}
       <motion.p
-        variants={itemVariants}
+        variants={prefersReduced ? noItemVariants : itemVariants}
         className="font-heading text-h2 text-bronze"
       >
         {formattedPrice}
@@ -70,20 +82,20 @@ export default function ProductSidebar({ piece }: ProductSidebarProps) {
 
       {/* Divider */}
       <motion.div
-        variants={itemVariants}
+        variants={prefersReduced ? noItemVariants : itemVariants}
         className="w-12 h-[2px] bg-bronze/40"
       />
 
       {/* Description */}
       <motion.p
-        variants={itemVariants}
+        variants={prefersReduced ? noItemVariants : itemVariants}
         className="text-body text-rich-black/80 leading-relaxed"
       >
         {piece.description}
       </motion.p>
 
       {/* Cultural Narrative */}
-      <motion.div variants={itemVariants} className="mt-2">
+      <motion.div variants={prefersReduced ? noItemVariants : itemVariants} className="mt-2">
         <h3 className="font-heading text-lg text-rich-black mb-2">
           Cultural Heritage
         </h3>
@@ -93,7 +105,7 @@ export default function ProductSidebar({ piece }: ProductSidebarProps) {
       </motion.div>
 
       {/* Materials */}
-      <motion.div variants={itemVariants}>
+      <motion.div variants={prefersReduced ? noItemVariants : itemVariants}>
         <h3 className="font-heading text-lg text-rich-black mb-3">
           Materials
         </h3>
@@ -110,7 +122,7 @@ export default function ProductSidebar({ piece }: ProductSidebarProps) {
       </motion.div>
 
       {/* Dimensions */}
-      <motion.div variants={itemVariants}>
+      <motion.div variants={prefersReduced ? noItemVariants : itemVariants}>
         <h3 className="font-heading text-lg text-rich-black mb-2">Details</h3>
         <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-small">
           {piece.dimensions.weight && (
@@ -150,7 +162,7 @@ export default function ProductSidebar({ piece }: ProductSidebarProps) {
       </motion.div>
 
       {/* Care */}
-      <motion.div variants={itemVariants}>
+      <motion.div variants={prefersReduced ? noItemVariants : itemVariants}>
         <h3 className="font-heading text-lg text-rich-black mb-2">Care</h3>
         <p className="text-small text-rich-black/60 leading-relaxed">
           {piece.care}
@@ -159,7 +171,7 @@ export default function ProductSidebar({ piece }: ProductSidebarProps) {
 
       {/* Add to Cart (styled, non-functional) */}
       <motion.button
-        variants={itemVariants}
+        variants={prefersReduced ? noItemVariants : itemVariants}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className="mt-4 w-full py-4 bg-bronze text-cream font-body font-medium text-body rounded-lg shadow-soft hover:bg-bronze-dark transition-colors duration-300"

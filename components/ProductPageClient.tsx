@@ -38,6 +38,25 @@ export default function ProductPageClient({ piece }: ProductPageClientProps) {
             onHotspotClose={handleHotspotClose}
           />
         </ViewerErrorBoundary>
+
+        {/* Accessible hotspot controls for keyboard/screen-reader users */}
+        <div className="absolute bottom-4 left-4 right-4 flex gap-2 justify-center z-10">
+          {piece.hotspots.map((hs) => (
+            <button
+              key={hs.id}
+              onClick={() => handleHotspotClick(hs)}
+              aria-label={`View story: ${hs.title}`}
+              aria-pressed={activeHotspot?.id === hs.id}
+              className={`px-3 py-1.5 rounded-full text-small font-body transition-colors duration-200 ${
+                activeHotspot?.id === hs.id
+                  ? "bg-bronze text-cream"
+                  : "bg-cream/80 text-rich-black/70 hover:bg-bronze/20"
+              }`}
+            >
+              {hs.title}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Product Info Sidebar — 30% on desktop */}

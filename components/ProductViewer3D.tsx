@@ -18,6 +18,7 @@ import {
   resetCamera,
   DEFAULT_CAMERA_POSITION,
 } from "@/lib/three-helpers";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 import Hotspot from "./Hotspot";
 import LoadingState from "./LoadingState";
 
@@ -77,6 +78,7 @@ interface SceneProps {
   onHotspotClick: (hotspot: HotspotType) => void;
   onHotspotClose: () => void;
   controlsRef: React.MutableRefObject<OrbitControlsImpl | null>;
+  prefersReducedMotion: boolean;
 }
 
 function Scene({
@@ -85,17 +87,31 @@ function Scene({
   onHotspotClick,
   onHotspotClose,
   controlsRef,
+  prefersReducedMotion,
 }: SceneProps) {
   const { camera } = useThree();
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  // Kill active GSAP timeline on unmount
+  useEffect(() => {
+    return () => {
+      timelineRef.current?.kill();
+    };
+  }, []);
 
   const handleHotspotClick = useCallback(
     (hotspot: HotspotType) => {
       if (!controlsRef.current) return;
 
+      // Kill any in-flight animation
+      timelineRef.current?.kill();
+
+      const duration = prefersReducedMotion ? 0.1 : 1.2;
+      const resetDuration = prefersReducedMotion ? 0.1 : 1.0;
+
       if (activeHotspot?.id === hotspot.id) {
-        // Clicking same hotspot closes it
         onHotspotClose();
-        resetCamera(camera, controlsRef.current, undefined, 1.0, () => {
+        timelineRef.current = resetCamera(camera, controlsRef.current, undefined, resetDuration, () => {
           if (controlsRef.current) {
             controlsRef.current.autoRotate = true;
           }
@@ -107,18 +123,18 @@ function Scene({
         controlsRef.current.autoRotate = false;
       }
 
-      animateCamera(
+      timelineRef.current = animateCamera(
         camera,
         controlsRef.current,
         hotspot.cameraPosition,
         hotspot.cameraTarget,
-        1.2,
+        duration,
         () => {
           onHotspotClick(hotspot);
         }
       );
     },
-    [activeHotspot, camera, controlsRef, onHotspotClick, onHotspotClose]
+    [activeHotspot, camera, controlsRef, onHotspotClick, onHotspotClose, prefersReducedMotion]
   );
 
   return (
@@ -185,6 +201,7 @@ export default function ProductViewer3D({
   onHotspotClose,
 }: ProductViewer3DProps) {
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <div className="relative w-full h-full min-h-[400px]">
@@ -210,6 +227,7 @@ export default function ProductViewer3D({
             onHotspotClick={onHotspotClick}
             onHotspotClose={onHotspotClose}
             controlsRef={controlsRef}
+            prefersReducedMotion={prefersReducedMotion}
           />
         </Suspense>
       </Canvas>
