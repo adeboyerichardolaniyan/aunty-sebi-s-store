@@ -206,7 +206,7 @@ function GlobeScene({
         autoRotateSpeed={0.3}
         enablePan={false}
         minDistance={3}
-        maxDistance={8}
+        maxDistance={20}
         enableDamping
         dampingFactor={0.05}
       />
