@@ -68,7 +68,11 @@ function isCartItem(val: unknown): val is CartItem {
     val !== null &&
     typeof (val as CartItem).pieceId === "string" &&
     typeof (val as CartItem).name === "string" &&
-    typeof (val as CartItem).price === "number"
+    typeof (val as CartItem).slug === "string" &&
+    typeof (val as CartItem).price === "number" &&
+    typeof (val as CartItem).currency === "string" &&
+    typeof (val as CartItem).quantity === "number" &&
+    typeof (val as CartItem).image === "string"
   );
 }
 
